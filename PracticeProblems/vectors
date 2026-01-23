@@ -1,0 +1,51 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+
+class student{
+  string name;
+  int id;
+  public:
+  student(string n, int i)
+  {
+    name = n;
+    id = i;
+  }
+  string getName()
+  {
+      return name;
+  }
+  int getID()
+  {
+      return id;
+  }
+};
+class teacher{
+  string name;
+  vector <student*> list;
+  public:
+  teacher(string n)
+  {
+      name = n;
+  }
+  void addS(student *s)
+  {
+      list.push_back(s);
+  }
+  void display()
+  {
+      for(student *s : list ){
+          cout<<"name: "<<s->getName()<<", ID: "<<s->getID()<<endl;
+      }
+  }
+};
+int main() {
+student s1("as", 123);
+student s2("hjk", 345);
+teacher t1("acv");
+t1.addS(&s1);
+t1.addS(&s2);
+
+t1.display();
+    return 0;
+}
