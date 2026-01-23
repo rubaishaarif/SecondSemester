@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+class student{
+    string name;
+    int roll;
+    float gpa;
+    public:
+    student(string name, int roll,float gpa)
+    {
+        this->name = name;
+        this->roll = roll;
+        this->gpa = gpa;
+    }
+    void update(float newgpa)
+    {
+    if(newgpa>=0.0 && newgpa<=4.0)
+    gpa = newgpa;
+    else
+    gpa = 0; }
+    void display()
+    { cout<<"name: "<<name<<"roll :"<<roll<<"GPA "<<gpa<<endl; }
+};
+int main() {
+student s1("yu", 345, 3.8);
+student s2("jl", 067, 3.95);
+s1.update(7.0);
+s1.display();
+s2.display();
+    return 0;
+}
