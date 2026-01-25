@@ -1,0 +1,26 @@
+// example
+#include <iostream>
+using namespace std;
+
+class FirstProgram
+{
+private:
+    int number1;  
+public:
+   
+    void set(int input1)
+    {
+        number1 = input1;
+    }
+    int get()
+    {
+        return number1;
+    }
+};
+int main()
+{
+    FirstProgram myInstance;   
+    myInstance.set(10);        
+    cout << myInstance.get() << endl;  /
+    return 0;
+}
