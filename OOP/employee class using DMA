@@ -1,0 +1,67 @@
+// employee
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+class employee {
+    int Msalary;
+    string Lname;
+    char* Fname;
+public:
+    employee() {
+        Msalary = 0;
+        Lname = " ";
+        Fname = nullptr;
+    }
+    void setEmp(const char* fname, string lname, int sal) {
+        Fname = new char[strlen(fname) + 1];
+        strcpy(Fname, fname);
+        Lname = lname;
+        if(sal>0)
+        Msalary = sal;
+        else
+        Msalary = 0;
+    }
+
+    char* getfirstName() { 
+        return Fname;
+        }
+    string getlastName() {
+        return Lname;
+        }
+    int getsalary() { 
+        return Msalary; }
+    int Ysalary() {
+        return Msalary * 12;
+    }
+    void Raise() {
+        Msalary = (Msalary * 0.10) + Msalary;
+    }
+    void print() {
+        cout << "First name : " << Fname << endl;
+        cout << "Last name  : " << Lname << endl;
+        cout << "Monthly salary : " << getsalary() << endl;
+       // cout << "Monthly salary : " << Msalary << endl;
+        cout << "Yearly salary  : " << Ysalary() << endl;
+    }
+    ~employee() {
+        delete[] Fname;
+    }
+};
+int main() {
+    employee e1, e2;
+
+    e1.setEmp("Rubaisha", "Arif", 50000);
+    e2.setEmp("Ali", "XYZ", 3000);
+    e1.print();
+    e2.print();
+
+    e1.Raise();
+    e2.Raise();
+
+    cout << "\nAfter  raise:\n\n";
+    e1.print();
+    e2.print();
+
+    return 0;
+}
