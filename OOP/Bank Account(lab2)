@@ -1,0 +1,88 @@
+// mini banking system project
+#include <iostream>
+using namespace std;
+
+class BankAcc{
+    int balance, withdraw, deposit, transaction;
+    float interest;
+    public:
+    BankAcc()
+    {
+        balance = 0;
+        withdraw = 0;
+        deposit = 0;
+        transaction = 0;
+        interest = 0.1;
+    }
+    float getBal()
+    {
+        return balance;
+    }
+    int transactions()
+    {
+        return transaction;
+    }
+    void Deposit(int amount)
+    {
+        if(amount>0){
+       balance  += amount;
+       transaction++; 
+            cout <<"Deposit done!"<<endl;
+        }
+    }
+    void withdrawal(int amount)
+    {
+        if(amount>balance || amount<=0)
+        {
+            cout<<"insufficient balance OR invalid input"<<endl;
+            return;
+        }
+        balance = balance - amount;
+        transaction++;
+        cout<<"successful withdraw"<<endl;
+    }
+
+    float Int()
+    {
+        return  balance*interest;
+    }
+    void menu()
+{
+    cout<<"\t\t\tMENU\t\t\t"<<endl;
+cout<<"1. Display the account balance\n 2. Display the number of transactions\n 3. Display interest earned for this period \n 4. Make a deposit \n 5. Make a withdrawal \n 6. Exit the program"<<endl; }
+};
+int main() {
+BankAcc a;
+int choice, amount;
+int flag = 1;
+while(flag ==1)
+{
+    a.menu();
+cout<<"enter choice(1-6) : ";
+cin>>choice;
+    switch(choice)
+    {
+        case 1:
+        cout<<"Cureent balance : "<<a.getBal()<<endl; break;
+        case 2:
+         cout<<"Number of transactions : "<<a.transactions()<<endl; break;
+         case 3:
+         cout<<"Interest : "<<a.Int()<<endl;
+         case 4:
+         cout<<"enter amount : ";
+         cin>>amount;
+         a.Deposit(amount);
+         break;
+         case 5:
+        cout<<"enter amount : ";
+         cin>>amount;
+         a.withdrawal(amount); break;
+         case 6:
+         cout<<"exit";
+         flag=0; break;
+        default:
+         cout<<"invalid"<<endl;
+         
+    } }
+             return 0;
+}
