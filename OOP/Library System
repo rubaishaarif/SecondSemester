@@ -1,0 +1,173 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+
+class Book{ 
+const int bookId; 
+string title; 
+string author;
+float price; 
+static int Tbooks; 
+public: //paraeterized constructor
+Book(int id,string Bname, string Aname, float amount) : bookId(id) 
+{ title = Bname;
+author = Aname;
+price = (amount>= 0) ? amount : 0;
+Tbooks++;
+} 
+void setprice(float amount) {
+if (amount>=0)
+price = amount;
+}
+    
+    
+ int getBookID() const { return bookId;}
+string gettitle() { return title;}
+string getauthor() { return author;} 
+float getprice() { return price;
+}
+
+static int No_of_books() { 
+return Tbooks; 
+} 
+    
+}; 
+int Book::Tbooks = 0;
+
+class Member {
+
+    int memberId;
+    string Mname;
+    static int Tmembers; 
+    int Borrowedbooks;
+    static const int maxBooksAllowed = 3;   
+
+public:
+    Member(int id, string name) {
+        memberId = id;
+        Mname = name;
+        Borrowedbooks =0;
+        Tmembers++;
+    }
+    int getMemberId() {
+        return memberId;
+    }
+
+    string getName() {
+        return Mname;
+    }
+
+    int getMaxBooks() {
+        return maxBooksAllowed;
+    }
+    bool setBorrowed()
+    {
+        if(Borrowedbooks<maxBooksAllowed)
+        {
+            Borrowedbooks++;
+            return true;}
+     
+     return false;
+    }
+    int borrow()
+    { return Borrowedbooks; }
+
+    static int getTMembers() {
+        return Tmembers;
+    }
+};
+
+int Member::Tmembers = 0;
+
+class Library {
+private:
+    Book* books[40];
+    Member* members[20];
+    int bookCount;
+    int memberCount;
+
+public:
+    Library() {
+        bookCount = 0;
+        memberCount = 0;
+    }
+
+    void addBook(Book* b) {
+        books[bookCount++] = b;
+    }
+
+    void registerMember(Member* m) {
+        members[memberCount++] = m;
+    }
+
+    void issueBook(int memberId) {
+        for (int i = 0; i < memberCount; i++) {
+            if (members[i]->getMemberId() == memberId) {
+                if (members[i]->setBorrowed()){
+                    cout << "Book issued to " << members[i]->getName() << endl;
+                } else {
+                    cout << "Maximum book limit reached!" << endl;
+                }
+                return;
+            }
+        }
+        cout << "Member not found!" << endl;
+    }
+
+    void displayBooks() {
+        cout << "\n\t\t Library Books \t\t\n";
+        for (int i = 0; i < bookCount; i++) {
+            cout << "ID: " << books[i]->getBookID()
+                 << ", Title: " << books[i]->gettitle()
+                 << ", Author: " << books[i]->getauthor()
+                 << ", Price: " << books[i]->getprice() << endl;
+        }
+    }
+
+    void displayMembers() {
+        cout << "\n\t\t Members \t\t\n";
+        for (int i = 0; i < memberCount; i++) {
+            cout << "ID: " << members[i]->getMemberId()
+                 << ", Name: " << members[i]->getName()
+                 << ", Borrowed: " << members[i]->borrow()
+                 << endl;
+        }
+    }
+};
+
+     int main() {
+    Library lib;
+
+    Book b1(1, "C++ Programming", "Bjarne Stroustrup", 550);
+    Book b2(2, "Dongri to Dubai", "S Hussain Zaidi", 450);
+    Book b3(3, "Haalim", "Nimra Ahmed", 530);
+    Book b4(4, "Harry Potter", "JK Rowling", 459);
+
+    Member m1(101, "Ali");
+    Member m2(102, "Sara");
+    Member m3(110, "Amna");
+
+    lib.addBook(&b1);
+    lib.addBook(&b2);
+    lib.addBook(&b3);
+    lib.addBook(&b4);
+
+    lib.registerMember(&m1);
+    lib.registerMember(&m2);
+    lib.registerMember(&m3);
+
+    lib.issueBook(101);
+    lib.issueBook(101);
+    lib.issueBook(101);
+    lib.issueBook(101); // limit reached
+    lib.issueBook(102);
+    lib.issueBook(110);
+    lib.displayBooks();
+    lib.displayMembers();
+
+    cout << "\nTotal Books: " << Book::No_of_books();
+    cout << "\nTotal Members: " << Member::getTMembers();
+
+    return 0;
+}
+     
