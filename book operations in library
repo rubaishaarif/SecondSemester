@@ -1,0 +1,129 @@
+//book management
+#include <iostream>
+#include <string>
+using namespace std;
+
+class bookType {
+    string title;
+    string author[4];  
+    int Numauthor;
+    string publisher;
+    string ISBN;
+    float price;
+    int copies, year;    
+public:
+bookType() { //constructor
+    title = " ";
+    Numauthor = 0;
+    publisher = " ";
+    ISBN = " ";
+    price = 0;
+    copies = 0;
+    year = 0;
+    for(int i=0; i<4; i++) 
+    { author[i] = " "; }
+    
+}
+void settitle(string t) { title = t; }
+string getTitle() { return title; }
+bool checkTitle(string t)  { 
+if(title == t)
+return true;
+    else
+    return false;
+}
+void setcopies(int c) { 
+    if(c > 0) 
+    copies = c; }
+void updatecopies(int c) {   
+    if(c > 0) 
+    copies += c;
+}
+int getcopies() { return copies; }
+
+void setAuthors(string Author[], int num) {
+    if (num > 4) 
+    num = 4;
+    else
+    Numauthor = num;
+    for (int i = 0; i < num; i++) {
+        author[i] = Author[i];
+    }
+}
+void printAuthors()  {
+    for (int i = 0; i < Numauthor; i++) {
+        cout << author[i] << ", ";
+    }
+    cout<<endl; }
+int getAuthorCount() { return Numauthor; }
+void setPublisher(string pub) { publisher = pub; }
+string getPublisher() { return publisher; }
+void setISBN(string isbn) { ISBN = isbn; }
+string getISBN()  { return ISBN; }
+ bool checkISBN(string isbn) { return ISBN == isbn; }
+void setPrice(float p) { 
+    if (p>=0)
+    price = p; }
+float getPrice() { return price; }
+void setyear(int y)
+{ 
+    if (y>0)
+    year = y ; }
+    int getyear()
+    { return year;  }
+void printBookDetails() {
+    cout << "Title : " << title << endl;
+    cout << "Authors: "; 
+    printAuthors();
+    cout << "Publisher : " << publisher << endl;
+    cout << "ISBN : " << ISBN << endl;
+    cout << "Price : " << price << endl;
+    cout << "copies in stock : " << copies << endl; 
+    cout<<"year of publication : "<<year<<endl;
+}
+};
+int main() {
+    bookType book[100];
+    int count = 0;
+    string tsearch; //search by title
+    string ISBNsearch;
+    
+    string a1[2] = {"Dennis Ritchie", "Brian Kernighan"}; //book1
+    book[count].settitle("C Programming");
+    book[count].setAuthors(a1, 2);
+    book[count].setPublisher("Prentice Hall");
+    book[count].setISBN("9780131103627");
+    book[count].setPrice(2500);
+    book[count].setcopies(10);
+    book[count].setyear(1997);
+    count++;
+    string a2[3] = {"J.K", "Rowling", "xyz"}; //book2
+        book[count].settitle("HarryPotter");
+    book[count].setAuthors(a2, 3);
+    book[count].setPublisher("Bloomsbury");
+    book[count].setISBN("978-07475");
+    book[count].setPrice(25.00);
+    book[count].setcopies(50);
+    book[count].setyear(2000);
+    count++;
+    cout<<"Enter title(without spaces)\n";
+    cin>>tsearch;
+    bool flag=false;
+        for (int i = 0; i < count; i++) { 
+        if (book[i].checkTitle(tsearch))
+           { book[i].printBookDetails();
+            flag = true;
+        } }
+        if(flag==false)
+        cout<<"book not found\n";
+    cout<<"Enter ISBN\n";
+    cin>>ISBNsearch;
+    flag=false;
+        for (int i = 0; i < count; i++) { 
+        if (book[i].checkISBN(ISBNsearch)) {
+            book[i].printBookDetails();
+            flag = true; }
+        }
+         if(flag==false)
+        cout<<"book not found\n";
+return 0; }
