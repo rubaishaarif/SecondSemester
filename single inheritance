@@ -1,0 +1,61 @@
+// implementation of single inheritence
+#include <iostream>
+using namespace std;
+class shape{
+    protected:
+    string color,Bcolor;
+    public:
+    shape()
+    {
+        color = "brown";
+        Bcolor = "blue";
+        cout<<"Shape obj with default constructor\n"; }
+    shape(string c, string Bc)
+    {
+        color = c;
+        Bcolor = Bc;
+        cout<<"Shape obj with parameterized constructor\n"; }
+    void printShape()
+    {
+        cout<<"color is : "<<color<<endl;
+        cout<<"background color is : "<<Bcolor<<endl; }
+    ~shape()
+    { cout<<"Shape destructor invoked\n"; }
+};
+class sq : public shape{
+    float b,h; //width, height
+    public:
+    sq()
+    {
+        b = 48.7;
+        h = 10;
+        cout<<"sqare obj with default constructor\n";
+    }
+    sq(float b, float h)
+    {
+        this->b = b;
+        this->h = h;
+        cout<<"sqare obj with parameterized constructor\n";
+    }
+    void printSq()
+    {
+        printShape();
+        cout<<"width is : "<<b<<endl;
+        cout<<"height is : "<<h<<endl;
+    }
+    ~sq()
+    { cout<<"Square destructor invoked\n"; }
+};
+int main() {
+shape s1;
+s1.printShape();
+shape s2("purple", "black");
+s2.printShape();
+cout<<endl;
+sq sq1;
+sq1.printSq();
+sq sq2(23.9, 45);
+sq2.printSq();
+
+    return 0;
+}
