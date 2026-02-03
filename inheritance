@@ -1,0 +1,37 @@
+#include <iostream>
+using namespace std;
+class animal{
+    public: //base class
+    animal(){
+        cout<<"Animal class object\n";
+    }
+    void eat()
+    {
+        cout<<"i can eat\n";
+    }
+    void sleep()
+    {
+        cout<<"i can sleep\n";
+    }
+};
+class dog : public animal //inherited class
+{ 
+    public:
+    dog(){
+        cout<<"dog class object\n";
+    }
+    void bark()
+    { cout<<"i can bark\n";
+    }
+};
+int main() {
+animal a1;
+a1.eat();
+a1.sleep();
+dog d1;
+d1.bark();
+d1.eat();
+d1.sleep();
+
+    return 0;
+}
