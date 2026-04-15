@@ -1,0 +1,52 @@
+#include <iostream>
+using namespace std;
+class driver{
+    protected:
+    string dname;
+    bool licenced;
+    public:
+    driver(string n, bool l)
+    {
+        dname = n;
+        licenced = l;
+    }
+    void setD(string n, bool l)
+    {
+        dname = n;
+        licenced = l;
+    }
+    string getDname() { return dname;}
+    bool getL() { return licenced;}
+};
+class car{
+    string cname;
+    driver *d;
+    public:
+    car(string n, driver *d)
+    {
+        cname = n;
+        this->d = d;
+    }
+    void setCar(string n)
+    { cname = n;}
+    string getCname() { return cname;}
+    
+};
+
+int main() {
+driver d1("ali", false);
+driver d2("ahmed", true);
+car c1("honda", &d1);
+car c2("corolla", &d2);
+cout<<"driver name "<< d1.getDname()<<endl;
+cout<<"car name "<< c1.getCname()<<endl;
+cout<<"driver licenced? "<< d2.getL()<<endl;
+
+cout<<"driver name "<< d2.getDname()<<endl;
+cout<<"car name "<< c1.getCname()<<endl;
+cout<<"driver licenced? "<< d1.getL()<<endl;
+
+d1.setD("Amna", false);
+cout<<d1.getDname()<<endl;
+cout<<d1.getL()<<endl;
+    return 0;
