@@ -1,0 +1,59 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+class Employee{
+    protected:
+    string name;
+    float salary;
+    public:
+    Employee(string n, float s) : name(n), salary(s){}
+    virtual void calculateSalary() = 0;
+    float getSalary() { return salary; }
+    string getName() { return name; }
+ 
+     virtual ~Employee() {
+         cout<<"Destructor called\n";
+     }
+};
+class FullTimeEmployee : public Employee{
+    float monthlypay;
+    public:
+    FullTimeEmployee(string n, float mp) : Employee(n,0) {
+monthlypay = mp;
+    }
+     void calculateSalary() override {
+         salary = monthlypay; }
+};
+class Contractor : public Employee{
+    float hourlyRate, hoursWorked;
+    public:
+    Contractor(string n, float hr, float hw) : Employee(n,0) {
+        hourlyRate = hr;
+        hoursWorked = hw;
+    }
+    void calculateSalary() override {
+        salary = hourlyRate * hoursWorked; }
+
+
+};
+int main() {
+vector<Employee*> emp;
+FullTimeEmployee fte1("ali", 35000);
+FullTimeEmployee fte2("ahmed", 35.500);
+Contractor c1("sara", 45.7, 180);
+Contractor c2("elsa", 44, 170);
+
+emp.push_back(&fte1);
+emp.push_back(&fte2);
+emp.push_back(&c1);
+emp.push_back(&c2);
+
+for(Employee *e : emp){
+    e->calculateSalary();
+}
+for(Employee *e : emp){
+    cout<<"Salary : "<<e->getSalary()<<endl;
+    cout<<"Name : "<<e->getName()<<endl;
+}
+return 0;
+}
