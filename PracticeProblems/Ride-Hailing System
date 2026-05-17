@@ -1,0 +1,113 @@
+#include<iostream>
+using namespace std;
+class Vehicle{
+		static int activeTrips ;
+		public:
+		Vehicle(){ activeTrips++;
+		}
+		virtual float calFare(float km, int min)  = 0;
+			virtual ~Vehicle(){ 
+			cout<<"Vehicle destroyed\n";
+			activeTrips--;
+		}
+		static int getTrips(){
+			cout<<"Active trips are : "<<activeTrips<<endl;
+		}
+	};
+ 
+int Vehicle:: activeTrips =0;
+class Driver{
+	protected :
+		int CNIC;
+		string license;
+		float rating;
+		public:
+		Driver(int c, string l, float r) : CNIC(c), license(l){
+			if(r<1.0 || r>5.0)
+			cout<<"rate driver within 1.0=5.0\n";
+			rating = r;
+		}
+		void Dinfo ()
+		{
+			cout<<"CNIc : "<<CNIC<<" , lisence : "<<license<<" , rating : "<<rating<<endl;
+		}
+		
+};
+class Bike : public Vehicle{
+	float perMin, perKm;
+	float fare ;
+	Driver d;
+	public:
+	Bike( int c, string l, float r, float m=0.5, float k=15 ) :  perKm(m) , perMin(k), d(c,l,r) {}
+	
+	float calFare(float km, int min)  override{
+
+		fare = (km*perKm) + (min*perMin);
+		return fare;	
+	}
+		void Bdetails(){
+		 cout<<"Bike : "<< perMin<<" per minute, "<<perKm<<" per KM. \n";
+		 cout<<"Total Fare : " << fare<<endl;
+		 cout<<"Bike RIder details : ";
+		 d.Dinfo();	
+	}
+};
+class Car : public Vehicle{
+	float km;
+	int min;
+	float fare ;
+	Driver d;
+	float perMin, perKm;
+	public:
+	Car(  int c, string l, float r,float m=1, float k=30 ) :  perKm(m) , perMin(k), d(c,l,r) {}
+	float calFare(float km, int min) override{
+		
+		fare = (km*perKm) + (min*perMin);
+		return fare;	
+	}
+	void Cdetails()  {
+		 cout<<"Car : "<< perMin<<" per minute, "<<perKm<<" per KM. \n";
+		 cout<<"Total Fare : " << fare<<endl;
+		 cout<<"Car driver details : ";
+		 d.Dinfo();	
+	}
+};
+
+class Rikshaw : public Vehicle{
+	float km;
+	int min;
+	Driver d;
+		float fare ;
+	float perMin, perKm;
+	public:
+	Rikshaw(int c, string l, float r, float m=0.75, float k=22.5) :  perKm(m) , perMin(k), d(c,l,r) {}
+	float calFare(float km, int min)  override{
+	
+		fare = (km*perKm) + (min*perMin);
+		return fare;	
+	} 
+		void Rdetails()  {
+		 cout<<"rikshaw : "<< perMin<<" per minute, "<<perKm<<" per KM. \n";
+		 cout<<"Total Fare : " << fare<<endl;
+		 cout<<" Rikshaw driver details : ";
+		 d.Dinfo();	
+	}
+	};
+int main()
+{
+Bike b(123456, "ABC-12", 1.9);
+ cout << "Bike fare: " << b.calFare(5, 10) << endl;
+    b.Bdetails();
+
+Car c(789, "XYZ-45", 3.8);
+   cout << "Car fare: " << c.calFare(5, 10) << endl;
+    c.Cdetails();
+
+
+Rikshaw r(456, "LMN-78", 4.0);
+   cout << "Rikshaw fare: " << r.calFare(5, 10) << endl;
+    r.Rdetails();
+    
+    Vehicle::getTrips();
+    return 0;
+}
